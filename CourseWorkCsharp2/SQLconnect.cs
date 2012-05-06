@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Data.SqlClient;
 using System.Data;
-using System.Collections.Generic;
+
 
 
 namespace CourseWorkCsharp2
@@ -17,15 +17,13 @@ namespace CourseWorkCsharp2
         {
             try
             {
-                con = new SqlConnection("user id=username;" +
-                                    "password=password;server=localhost;" +
-                                    "Trusted_Connection=yes;" +
-                                    "database=database; " +
-                                    "connection timeout=30");
+                
+                con = new SqlConnection("Data Source=MARTHYN-LAPTOP\\SQLEXPRESS;Initial Catalog=master;Integrated Security=True");
             }
             catch (Exception e)
             {
                 Console.WriteLine("Connection failed");
+                Console.WriteLine(e.Message);
             }
         }
         public SQLconnect(String user, String password, String database, String server)
@@ -73,49 +71,73 @@ namespace CourseWorkCsharp2
         {
             Console.WriteLine("arrived at checklogin");
             List<User> users = this.findUser("username", username);
-            Console.WriteLine("found users");
-            if (users.Count == 1)
+            if (users.Count > 0)
             {
-                User user = users.ElementAt(0);
-                if (user.getPassword() == password)
+                Console.WriteLine("found users");
+                if (users.Count == 1)
                 {
-                    return true;
+                    User user = users.ElementAt(0);
+                    if (user.getPassword() == password)
+                    {
+                        return true;
+                    }
                 }
             }
             return false;
         }
 
-        public void addUser(String username, String email, String firstname, String surname, String password)
-        {
-            SqlParameter parUsername = new SqlParameter("@username", SqlDbType.VarChar);
-            SqlParameter parEmail = new SqlParameter("@email", SqlDbType.VarChar);
-            SqlParameter parFirstname = new SqlParameter("@firstname", SqlDbType.VarChar);
-            SqlParameter parSurname = new SqlParameter("@surname", SqlDbType.VarChar);
-            SqlParameter parPassword = new SqlParameter("@password", SqlDbType.VarChar);
-            parUsername.Value = username;
-            parEmail.Value = email;
-            parFirstname.Value = firstname;
-            parSurname.Value = surname;
-            parPassword.Value = password;
 
-            
-            this.openCon();
-            SqlCommand query = new SqlCommand("INSERT INTO users (username, email, firstname, surname, password) VALUES (@username, @email, @firstname, @surname, @password)");
+        public bool addUser(User user)
+        {
+            String sql;
+            if (user.getId() > 0)
+            {
+                sql = "UPDATE users SET username = @username, email = @email, firstname = @firstname, lastname = @surname, password = @password, universityId = @universityId WHERE userId = @userId";
+            }
+            else
+            {
+                sql = "INSERT INTO users (username, email, firstname, lastname, password,universityId)" +
+                          "VALUES (@username, @email, @firstname, @surname, @password,@universityId)";
+            }
+            SqlCommand query = new SqlCommand(sql,con);
+            SqlParameter parUsername = new SqlParameter("@username", SqlDbType.VarChar, 50);
+            SqlParameter parEmail = new SqlParameter("@email", SqlDbType.VarChar, 50);
+            SqlParameter parFirstname = new SqlParameter("@firstname", SqlDbType.VarChar, 50);
+            SqlParameter parSurname = new SqlParameter("@surname", SqlDbType.VarChar, 50);
+            SqlParameter parPassword = new SqlParameter("@password", SqlDbType.VarChar, 50);
+            SqlParameter parUniversity = new SqlParameter("@universityId", SqlDbType.Int);
+            SqlParameter parUserId = new SqlParameter("@userId", SqlDbType.Int);
+            parUsername.Value = user.getUsername();
+            parEmail.Value = user.getEmail();
+            parFirstname.Value = user.getFirstname();
+            parSurname.Value = user.getLastname();
+            parPassword.Value = user.getPassword();
+            parUniversity.Value = user.getUniversityId();
+            parUserId.Value = user.getId();
+
             query.Parameters.Add(parUsername);
             query.Parameters.Add(parEmail);
             query.Parameters.Add(parFirstname);
             query.Parameters.Add(parSurname);
             query.Parameters.Add(parPassword);
-            
+            query.Parameters.Add(parUniversity);
+            query.Parameters.Add(parUserId);
+            Console.WriteLine(query.CommandText);
             try
             {
-                query.ExecuteNonQuery();
+                this.openCon();
+                query.ExecuteScalar();
+                this.closeCon();
+                return true;
             }
             catch (Exception e)
             {
                 Console.WriteLine("Adding user failed");
+                Console.WriteLine(e.Message);
+                this.closeCon();            
+                return false;
             }
-            this.closeCon();
+            
         }
 
         public void deleteUser(String id)
@@ -142,31 +164,276 @@ namespace CourseWorkCsharp2
             SqlDataReader reader;
             List<User> userlist = new List<User>();
 
-            SqlParameter parColumn = new SqlParameter("@Column", SqlDbType.VarChar);
-            SqlParameter parSearchQ = new SqlParameter("@searchQ", SqlDbType.VarChar);
-            parColumn.Value = column;
+            SqlCommand query = new SqlCommand("SELECT TOP 1 * FROM users WHERE "+column+"= @searchQ", con);
+
+            SqlParameter parSearchQ = new SqlParameter("searchQ", SqlDbType.VarChar);
             parSearchQ.Value = searchQ;
-
-            Console.WriteLine("Opening connection now");
-            this.openCon();
-            SqlCommand query = new SqlCommand("SELECT * FROM users WHERE @Column = @searchQ LIMIT 1", con);
-            query.Parameters.Add(parColumn);
             query.Parameters.Add(parSearchQ);
-
-            reader = query.ExecuteReader();
-            while(reader.Read())
+              
+            this.openCon();
+            try
             {
-                Console.WriteLine("next");
-                User user = new User(reader["username"].ToString(), 
-                                    Convert.ToInt32(reader["id"].ToString()), 
-                                    reader["firstname"].ToString(), 
-                                    reader["lastname"].ToString(), 
-                                    reader["email"].ToString(),
-                                    reader["password"].ToString());
-                userlist.Add(user);
+                reader = query.ExecuteReader();
+            
+                while(reader.Read())
+                {
+                    Console.WriteLine("next");
+                    User user = new User(reader["username"].ToString(), 
+                                        Convert.ToInt32(reader["userId"].ToString()), 
+                                        reader["firstname"].ToString(), 
+                                        reader["lastname"].ToString(), 
+                                        reader["email"].ToString(),
+                                        reader["password"].ToString(),
+                                        Convert.ToInt32(reader["universityId"].ToString()));
+                    userlist.Add(user);
+                }
+            }
+            catch (SqlException e)
+            {
+                Console.WriteLine(e.Message);
             }
             this.closeCon();
             return userlist;            
         }
+
+        public Note insertNote(Note note)
+        {
+            String sql;
+            if (note.getId() > 0)
+            {
+                sql = "UPDATE note " +
+                             "SET notebookId = @notebookId, userId = @userId," +
+                             "text = @text, tags = @tags, title= @title " +
+                             "WHERE noteId = @noteId";
+                
+            }
+            else
+            {
+                sql = "INSERT INTO note (notebookId, userId, text, tags, title)" +
+                          "VALUES (@notebookId, @userId, @text, @tags, @title)";
+            }
+            SqlCommand query = new SqlCommand(sql, con);
+            SqlParameter parNotebookId = new SqlParameter("@notebookId", SqlDbType.Int);
+            SqlParameter parUserId = new SqlParameter("@userId", SqlDbType.VarChar, 50);
+            SqlParameter parText = new SqlParameter("@text", SqlDbType.VarChar);
+            SqlParameter parTags = new SqlParameter("@tags", SqlDbType.VarChar, 50);
+            SqlParameter parTitle = new SqlParameter("@title", SqlDbType.VarChar, 50);
+            SqlParameter parNoteId = new SqlParameter("@noteId", SqlDbType.Int);
+
+            parNotebookId.Value = note.getNotebookId();
+            parUserId.Value = note.getUserId();
+            parText.Value = note.getText();
+            parTags.Value = note.getTags();
+            parTitle.Value = note.getTitle();
+            parNoteId.Value = note.getId();
+            
+            query.Parameters.Add(parNotebookId);
+            query.Parameters.Add(parUserId);
+            query.Parameters.Add(parText);
+            query.Parameters.Add(parTags);
+            query.Parameters.Add(parTitle);
+            query.Parameters.Add(parNoteId);
+            
+            Console.WriteLine(query.CommandText);
+            try
+            {
+                this.openCon();
+                query.ExecuteScalar();
+                this.closeCon();
+                
+                if(note.getId()>0)
+                {
+                    List<Note> notes = getNotes(note.getId(),"noteId");
+                    return notes.ElementAt(0);
+                }                 
+                else
+                {
+                    List<Note> notes = getNotes(note.getUserId(),"userId");
+                    return notes.ElementAt(notes.Count-1);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Adding note failed");
+                Console.WriteLine(e.Message);
+                this.closeCon();
+                return note;
+            }
+        }
+
+        public void insertNotebook(Notebook notebook)
+        {
+            String sql;
+            if (notebook.getId() > 0)
+            {
+                sql = "UPDATE notebook " +
+                             "SET name = @name, description = @description " +
+                             "WHERE notebookId = @notebookId";
+
+            }
+            else
+            {
+                sql = "INSERT INTO notebook (userId, name, description)" +
+                          "VALUES (@userId, @name, @description)";
+            }
+            SqlCommand query = new SqlCommand(sql, con);
+            SqlParameter parName = new SqlParameter("@name", SqlDbType.VarChar);
+            SqlParameter parUserId = new SqlParameter("@userId", SqlDbType.Int);
+            SqlParameter parDescription = new SqlParameter("@description", SqlDbType.VarChar);
+            SqlParameter parNotebookId = new SqlParameter("@notebookId", SqlDbType.Int);
+
+            parNotebookId.Value = notebook.getId();
+            parUserId.Value = notebook.getUserId();
+            parName.Value = notebook.getName();
+            parDescription.Value = notebook.getDescription();
+
+            query.Parameters.Add(parNotebookId);
+            query.Parameters.Add(parUserId);
+            query.Parameters.Add(parName);
+            query.Parameters.Add(parDescription);
+
+            try
+            {
+                this.openCon();
+                query.ExecuteScalar();
+                this.closeCon();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Adding note failed");
+                Console.WriteLine(e.Message);
+                this.closeCon();
+            }
+        }
+
+        public List<University> returnUniversitys()
+        {
+            SqlDataReader reader;
+            List<University> universitylist = new List<University>();
+
+            SqlCommand query = new SqlCommand("SELECT * FROM university", con);
+            this.openCon();
+            try
+            {
+                reader = query.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    Console.WriteLine("next");
+                    University university = new University(Convert.ToInt32(reader["universityId"].ToString()),
+                                        reader["name"].ToString(),
+                                        reader["location"].ToString());
+                    universitylist.Add(university);
+                }
+            }
+            catch (SqlException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            this.closeCon();
+            return universitylist;
+        }
+
+        public List<Notebook> getNotebooks(int userId)
+        {
+            SqlDataReader reader;
+            List<Notebook> notebooklist = new List<Notebook>();
+
+            SqlCommand query = new SqlCommand("SELECT * FROM notebook WHERE userId = @userId", con);
+            SqlParameter parUserId = new SqlParameter("@userId", SqlDbType.Int);
+            parUserId.Value = userId;
+            query.Parameters.Add(parUserId);
+            this.openCon();
+            try
+            {
+                reader = query.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    Notebook notebook = new Notebook(Convert.ToInt32(reader["notebookId"].ToString()),
+                                        Convert.ToInt32(reader["userId"].ToString()),
+                                        reader["name"].ToString(),
+                                        reader["description"].ToString());
+                    notebooklist.Add(notebook);
+                }
+            }
+            catch (SqlException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            this.closeCon();
+            return notebooklist;
+        }
+
+        public List<Note> getNotes(int id, String type)
+        {
+            SqlDataReader reader;
+            List<Note> notelist = new List<Note>();
+
+            SqlCommand query = new SqlCommand("SELECT * FROM note WHERE "+type+" = @id", con);
+            SqlParameter parId = new SqlParameter("@id", SqlDbType.Int);
+            parId.Value = id;
+            query.Parameters.Add(parId);
+            this.openCon();
+            try
+            {
+                reader = query.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    Note note = new Note(Convert.ToInt32(reader["noteId"].ToString()),
+                                        reader["text"].ToString(),
+                                        reader["title"].ToString(),
+                                        reader["tags"].ToString(),
+                                        Convert.ToInt32(reader["notebookId"].ToString()),
+                                        Convert.ToInt32(reader["userId"].ToString()));
+                    notelist.Add(note);
+                }
+            }
+            catch (SqlException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            this.closeCon();
+            return notelist;
+        }
+
+        public List<Note> SearchNotes(String keyword)
+        {
+            SqlDataReader reader;
+            List<Note> notelist = new List<Note>();
+
+            SqlCommand query = new SqlCommand("SELECT * FROM note WHERE tags LIKE '%'+@keyword +'%'"+
+                                              "OR title LIKE '%'+@keyword +'%'", con);
+            SqlParameter parKeyword = new SqlParameter("@keyword", SqlDbType.VarChar);
+            parKeyword.Value = keyword;
+            query.Parameters.Add(parKeyword);
+            this.openCon();
+            try
+            {
+                reader = query.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    Note note = new Note(Convert.ToInt32(reader["noteId"].ToString()),
+                                        reader["text"].ToString(),
+                                        reader["title"].ToString(),
+                                        reader["tags"].ToString(),
+                                        Convert.ToInt32(reader["notebookId"].ToString()),
+                                        Convert.ToInt32(reader["userId"].ToString()));
+                    notelist.Add(note);
+                }
+            }
+            catch (SqlException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            this.closeCon();
+            return notelist;
+        }
+        
     }
+
+
+    
 }

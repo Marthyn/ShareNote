@@ -39,8 +39,8 @@
             this.label4 = new System.Windows.Forms.Label();
             this.Surnamelabel = new System.Windows.Forms.Label();
             this.RegisterButton = new System.Windows.Forms.Button();
-            this.universityField = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
+            this.universityBox = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // userNameField
@@ -55,28 +55,28 @@
             this.surnameField.Location = new System.Drawing.Point(178, 117);
             this.surnameField.Name = "surnameField";
             this.surnameField.Size = new System.Drawing.Size(149, 20);
-            this.surnameField.TabIndex = 1;
+            this.surnameField.TabIndex = 4;
             // 
             // firtnameField
             // 
             this.firtnameField.Location = new System.Drawing.Point(178, 91);
             this.firtnameField.Name = "firtnameField";
             this.firtnameField.Size = new System.Drawing.Size(149, 20);
-            this.firtnameField.TabIndex = 2;
+            this.firtnameField.TabIndex = 3;
             // 
             // emailField
             // 
             this.emailField.Location = new System.Drawing.Point(178, 65);
             this.emailField.Name = "emailField";
             this.emailField.Size = new System.Drawing.Size(149, 20);
-            this.emailField.TabIndex = 3;
+            this.emailField.TabIndex = 2;
             // 
             // passwordField
             // 
             this.passwordField.Location = new System.Drawing.Point(178, 39);
             this.passwordField.Name = "passwordField";
             this.passwordField.Size = new System.Drawing.Size(149, 20);
-            this.passwordField.TabIndex = 4;
+            this.passwordField.TabIndex = 1;
             // 
             // label1
             // 
@@ -125,20 +125,13 @@
             // 
             // RegisterButton
             // 
-            this.RegisterButton.Location = new System.Drawing.Point(252, 349);
+            this.RegisterButton.Location = new System.Drawing.Point(252, 166);
             this.RegisterButton.Name = "RegisterButton";
             this.RegisterButton.Size = new System.Drawing.Size(75, 23);
-            this.RegisterButton.TabIndex = 10;
+            this.RegisterButton.TabIndex = 6;
             this.RegisterButton.Text = "Register";
             this.RegisterButton.UseVisualStyleBackColor = true;
             this.RegisterButton.Click += new System.EventHandler(this.RegisterButton_Click);
-            // 
-            // universityField
-            // 
-            this.universityField.Location = new System.Drawing.Point(178, 143);
-            this.universityField.Name = "universityField";
-            this.universityField.Size = new System.Drawing.Size(149, 20);
-            this.universityField.TabIndex = 11;
             // 
             // label5
             // 
@@ -149,13 +142,21 @@
             this.label5.TabIndex = 12;
             this.label5.Text = "University";
             // 
+            // universityBox
+            // 
+            this.universityBox.FormattingEnabled = true;
+            this.universityBox.Location = new System.Drawing.Point(178, 139);
+            this.universityBox.Name = "universityBox";
+            this.universityBox.Size = new System.Drawing.Size(149, 21);
+            this.universityBox.TabIndex = 5;
+            // 
             // RegisterWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(339, 384);
+            this.ClientSize = new System.Drawing.Size(339, 199);
+            this.Controls.Add(this.universityBox);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.universityField);
             this.Controls.Add(this.RegisterButton);
             this.Controls.Add(this.Surnamelabel);
             this.Controls.Add(this.label4);
@@ -167,6 +168,8 @@
             this.Controls.Add(this.firtnameField);
             this.Controls.Add(this.surnameField);
             this.Controls.Add(this.userNameField);
+            this.MaximumSize = new System.Drawing.Size(355, 237);
+            this.MinimumSize = new System.Drawing.Size(355, 237);
             this.Name = "RegisterWindow";
             this.Text = "RegisterWindow";
             this.ResumeLayout(false);
@@ -187,7 +190,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label Surnamelabel;
         private System.Windows.Forms.Button RegisterButton;
-        private System.Windows.Forms.TextBox universityField;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.ComboBox universityBox;
     }
 }

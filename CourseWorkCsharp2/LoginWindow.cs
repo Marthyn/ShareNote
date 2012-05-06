@@ -29,20 +29,23 @@ namespace CourseWorkCsharp2
         {
             String username = this.usernameField.Text;
             String password = this.passwordField.Text;
-            WriteNote writenotewindow = new WriteNote();
-            writenotewindow.ShowDialog();
-            /*
+
+
             if (SQL.checkLogin(username, password))
             {
                 MessageBox.Show("Login succesful");
-                
+                List<User> users = SQL.findUser("username", username);
+                User user = users.ElementAt(0);
+                MainWindow mainWindow = new MainWindow(user);
+                mainWindow.ShowDialog();
+                this.Close();
             }
             else
             {
                 MessageBox.Show("Login failed");
                 
             }
-             */
+
         }
     }
 }

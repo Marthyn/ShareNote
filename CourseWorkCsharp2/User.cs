@@ -5,7 +5,7 @@ using System.Text;
 
 namespace CourseWorkCsharp2
 {
-    class User
+    public class User
     {
         private int id;
         private String username;
@@ -13,13 +13,14 @@ namespace CourseWorkCsharp2
         private String lastname;
         private String email;
         private String password;
+        private int universityId;
 
         public User()
         {
 
         }
 
-        public User(String username, int id, String firstname, String lastname, String email, String password)
+        public User(String username, int id, String firstname, String lastname, String email, String password, int universityId)
         {
             this.username = username;
             this.id = id;
@@ -27,6 +28,7 @@ namespace CourseWorkCsharp2
             this.lastname = lastname;
             this.email = email;
             this.password = password ;
+            this.universityId = universityId;
         }
 
         public int getId()
@@ -57,6 +59,16 @@ namespace CourseWorkCsharp2
         public String getPassword()
         {
             return password;
+        }
+
+        public int getUniversityId()
+        {
+            return universityId;
+        }
+
+        public override string ToString()
+        {
+            return username;
         }
     }
 }
