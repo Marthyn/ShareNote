@@ -34,6 +34,8 @@
     <RootNamespace>CourseWorkCsharp2</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="Microsoft.VisualBasic.PowerPacks.Vs, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
@@ -44,6 +46,12 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="friendWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="friendWindow.Designer.cs">
+      <DependentUpon>friendWindow.cs</DependentUpon>
+    </Compile>
     <Compile Include="LoginWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -82,6 +90,12 @@
     <Compile Include="RegisterWindow.Designer.cs">
       <DependentUpon>RegisterWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="SearchFriend.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SearchFriend.Designer.cs">
+      <DependentUpon>SearchFriend.cs</DependentUpon>
+    </Compile>
     <Compile Include="SQLconnect.cs" />
     <Compile Include="University.cs" />
     <Compile Include="User.cs" />
@@ -99,6 +113,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="friendWindow.resx">
+      <DependentUpon>friendWindow.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="LoginWindow.resx">
       <DependentUpon>LoginWindow.cs</DependentUpon>
     </EmbeddedResource>
@@ -115,6 +132,9 @@
     <EmbeddedResource Include="RegisterWindow.resx">
       <DependentUpon>RegisterWindow.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="SearchFriend.resx">
+      <DependentUpon>SearchFriend.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UserWindowedit.resx">
       <DependentUpon>UserWindowedit.cs</DependentUpon>
     </EmbeddedResource>
@@ -124,10 +144,25 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="ClassDiagram1.cd" />
+    <None Include="help.chm" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings1.Designer.cs</LastGenOutput>
     </None>
+    <Resource Include="resources\help.chm" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="friend_add.png" />
+    <Content Include="notebook_add.png" />
+    <Content Include="note_add.png" />
+    <Content Include="resources\editprofile.png" />
+    <Content Include="resources\friend.png" />
+    <Content Include="resources\friend_add.png" />
+    <Content Include="resources\help.png" />
+    <Content Include="resources\help2.png" />
+    <Content Include="resources\notebook_add2.png" />
+    <Content Include="resources\note_add.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />
   <ProjectExtensions>

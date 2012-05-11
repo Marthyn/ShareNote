@@ -28,7 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
+            this.menuBar = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newNoteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newNotebookToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -38,31 +40,46 @@
             this.myProfileInfoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.notebooklist = new System.Windows.Forms.ListBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.notebookLabel = new System.Windows.Forms.Label();
             this.NotesList = new System.Windows.Forms.ListBox();
-            this.listBox3 = new System.Windows.Forms.ListBox();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.readToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.editToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.friendsList = new System.Windows.Forms.ListBox();
             this.NotesTagList = new System.Windows.Forms.ListBox();
             this.NotesOwnerList = new System.Windows.Forms.ListBox();
-            this.Notes = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
+            this.NotesLabel = new System.Windows.Forms.Label();
+            this.friendsLabel = new System.Windows.Forms.Label();
             this.searchbar = new System.Windows.Forms.TextBox();
-            this.menuStrip1.SuspendLayout();
+            this.addFriendIcon = new System.Windows.Forms.PictureBox();
+            this.addNotebookIcon = new System.Windows.Forms.PictureBox();
+            this.addNoteIcon = new System.Windows.Forms.PictureBox();
+            this.shapeContainer1 = new Microsoft.VisualBasic.PowerPacks.ShapeContainer();
+            this.lineShape1 = new Microsoft.VisualBasic.PowerPacks.LineShape();
+            this.editProfileIcon = new System.Windows.Forms.PictureBox();
+            this.helpIcon = new System.Windows.Forms.PictureBox();
+            this.notesTitleTooltip = new System.Windows.Forms.ToolTip(this.components);
+            this.menuBar.SuspendLayout();
+            this.contextMenuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.addFriendIcon)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.addNotebookIcon)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.addNoteIcon)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.editProfileIcon)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.helpIcon)).BeginInit();
             this.SuspendLayout();
             // 
-            // menuStrip1
+            // menuBar
             // 
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
             this.optionsToolStripMenuItem,
             this.helpToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1008, 24);
-            this.menuStrip1.TabIndex = 1;
-            this.menuStrip1.Text = "menuStrip1";
+            this.menuBar.Location = new System.Drawing.Point(0, 0);
+            this.menuBar.Name = "menuBar";
+            this.menuBar.Size = new System.Drawing.Size(1008, 24);
+            this.menuBar.TabIndex = 1;
+            this.menuBar.Text = "menuStrip1";
             // 
             // fileToolStripMenuItem
             // 
@@ -122,177 +139,286 @@
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.helpToolStripMenuItem.Text = "Help";
+            this.helpToolStripMenuItem.Click += new System.EventHandler(this.helpToolStripMenuItem_Click_1);
             // 
             // notebooklist
             // 
-            this.notebooklist.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.notebooklist.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.notebooklist.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)));
+            this.notebooklist.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.notebooklist.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.notebooklist.FormattingEnabled = true;
-            this.notebooklist.Location = new System.Drawing.Point(6, 91);
+            this.notebooklist.ItemHeight = 15;
+            this.notebooklist.Location = new System.Drawing.Point(6, 99);
             this.notebooklist.Name = "notebooklist";
-            this.notebooklist.Size = new System.Drawing.Size(192, 355);
+            this.notebooklist.Size = new System.Drawing.Size(195, 409);
             this.notebooklist.TabIndex = 2;
+            this.notesTitleTooltip.SetToolTip(this.notebooklist, "Title of notebooks, double click to edit notebook, single click to show notes");
             this.notebooklist.SelectedIndexChanged += new System.EventHandler(this.notebooklist_SelectedIndexChanged);
             this.notebooklist.DoubleClick += new System.EventHandler(this.notebookList_DoubleClick);
             // 
-            // label1
+            // notebookLabel
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(71, 50);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(75, 15);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "Notebooks";
+            this.notebookLabel.AutoSize = true;
+            this.notebookLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.notebookLabel.Location = new System.Drawing.Point(2, 74);
+            this.notebookLabel.Name = "notebookLabel";
+            this.notebookLabel.Size = new System.Drawing.Size(95, 20);
+            this.notebookLabel.TabIndex = 3;
+            this.notebookLabel.Text = "Notebooks";
             // 
             // NotesList
             // 
-            this.NotesList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.NotesList.BackColor = System.Drawing.Color.Beige;
+            this.NotesList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)));
+            this.NotesList.BackColor = System.Drawing.Color.White;
+            this.NotesList.ContextMenuStrip = this.contextMenuStrip1;
+            this.NotesList.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.NotesList.FormattingEnabled = true;
-            this.NotesList.Location = new System.Drawing.Point(203, 91);
+            this.NotesList.ItemHeight = 15;
+            this.NotesList.Location = new System.Drawing.Point(205, 99);
             this.NotesList.MultiColumn = true;
             this.NotesList.Name = "NotesList";
-            this.NotesList.Size = new System.Drawing.Size(180, 355);
+            this.NotesList.Size = new System.Drawing.Size(200, 409);
             this.NotesList.TabIndex = 4;
+            this.notesTitleTooltip.SetToolTip(this.NotesList, "Title of note, double click to open note");
             this.NotesList.Click += new System.EventHandler(this.EqualSelectedTitle);
             this.NotesList.DoubleClick += new System.EventHandler(this.NotesList_DoubleClick);
             // 
-            // listBox3
+            // contextMenuStrip1
             // 
-            this.listBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.listBox3.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.listBox3.FormattingEnabled = true;
-            this.listBox3.Location = new System.Drawing.Point(808, 91);
-            this.listBox3.Name = "listBox3";
-            this.listBox3.Size = new System.Drawing.Size(195, 355);
-            this.listBox3.TabIndex = 5;
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.readToolStripMenuItem,
+            this.editToolStripMenuItem1,
+            this.deleteToolStripMenuItem});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(108, 70);
+            // 
+            // readToolStripMenuItem
+            // 
+            this.readToolStripMenuItem.Name = "readToolStripMenuItem";
+            this.readToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.readToolStripMenuItem.Text = "Read";
+            this.readToolStripMenuItem.Click += new System.EventHandler(this.editToolStripMenuItem_Click);
+            // 
+            // editToolStripMenuItem1
+            // 
+            this.editToolStripMenuItem1.Name = "editToolStripMenuItem1";
+            this.editToolStripMenuItem1.Size = new System.Drawing.Size(107, 22);
+            this.editToolStripMenuItem1.Text = "Edit";
+            this.editToolStripMenuItem1.Click += new System.EventHandler(this.editToolStripMenuItem_Click);
+            // 
+            // deleteToolStripMenuItem
+            // 
+            this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.deleteToolStripMenuItem.Text = "Delete";
+            this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
+            // 
+            // friendsList
+            // 
+            this.friendsList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.friendsList.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.friendsList.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.friendsList.FormattingEnabled = true;
+            this.friendsList.ItemHeight = 15;
+            this.friendsList.Location = new System.Drawing.Point(808, 99);
+            this.friendsList.Name = "friendsList";
+            this.friendsList.Size = new System.Drawing.Size(195, 409);
+            this.friendsList.TabIndex = 5;
+            this.notesTitleTooltip.SetToolTip(this.friendsList, "List of friends, double click to open user");
+            this.friendsList.SelectedIndexChanged += new System.EventHandler(this.friendList_SelectedIndexChanged);
+            this.friendsList.DoubleClick += new System.EventHandler(this.FriendsList_DoubleClick);
             // 
             // NotesTagList
             // 
-            this.NotesTagList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.NotesTagList.BackColor = System.Drawing.Color.Beige;
+            this.NotesTagList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.NotesTagList.BackColor = System.Drawing.Color.White;
+            this.NotesTagList.ContextMenuStrip = this.contextMenuStrip1;
+            this.NotesTagList.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.NotesTagList.FormattingEnabled = true;
-            this.NotesTagList.Location = new System.Drawing.Point(382, 91);
+            this.NotesTagList.ItemHeight = 15;
+            this.NotesTagList.Location = new System.Drawing.Point(404, 99);
             this.NotesTagList.MultiColumn = true;
             this.NotesTagList.Name = "NotesTagList";
-            this.NotesTagList.Size = new System.Drawing.Size(261, 355);
+            this.NotesTagList.Size = new System.Drawing.Size(200, 409);
             this.NotesTagList.TabIndex = 6;
+            this.notesTitleTooltip.SetToolTip(this.NotesTagList, "Tags of note, double click to open note");
             this.NotesTagList.Click += new System.EventHandler(this.EqualSelectedTag);
             this.NotesTagList.DoubleClick += new System.EventHandler(this.NotesList_DoubleClick);
             // 
             // NotesOwnerList
             // 
-            this.NotesOwnerList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.NotesOwnerList.BackColor = System.Drawing.Color.Beige;
+            this.NotesOwnerList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.NotesOwnerList.BackColor = System.Drawing.Color.White;
+            this.NotesOwnerList.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.NotesOwnerList.FormattingEnabled = true;
-            this.NotesOwnerList.Location = new System.Drawing.Point(642, 91);
+            this.NotesOwnerList.ItemHeight = 15;
+            this.NotesOwnerList.Location = new System.Drawing.Point(603, 99);
             this.NotesOwnerList.MultiColumn = true;
             this.NotesOwnerList.Name = "NotesOwnerList";
-            this.NotesOwnerList.Size = new System.Drawing.Size(160, 355);
+            this.NotesOwnerList.Size = new System.Drawing.Size(200, 409);
             this.NotesOwnerList.TabIndex = 7;
+            this.notesTitleTooltip.SetToolTip(this.NotesOwnerList, "Owner of note, double click to open user");
             this.NotesOwnerList.Click += new System.EventHandler(this.EqualSelectedOwner);
-            this.NotesOwnerList.DoubleClick += new System.EventHandler(this.NotesList_DoubleClick);
+            this.NotesOwnerList.DoubleClick += new System.EventHandler(this.NotesOwnerList_DoubleClick);
             // 
-            // Notes
+            // NotesLabel
             // 
-            this.Notes.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
-            this.Notes.AutoSize = true;
-            this.Notes.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Notes.Location = new System.Drawing.Point(477, 50);
-            this.Notes.Name = "Notes";
-            this.Notes.Size = new System.Drawing.Size(53, 18);
-            this.Notes.TabIndex = 8;
-            this.Notes.Text = "Notes";
+            this.NotesLabel.AutoSize = true;
+            this.NotesLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.NotesLabel.Location = new System.Drawing.Point(201, 74);
+            this.NotesLabel.Name = "NotesLabel";
+            this.NotesLabel.Size = new System.Drawing.Size(56, 20);
+            this.NotesLabel.TabIndex = 8;
+            this.NotesLabel.Text = "Notes";
             // 
-            // label2
+            // friendsLabel
             // 
-            this.label2.AutoSize = true;
-            this.label2.BackColor = System.Drawing.Color.Transparent;
-            this.label2.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label2.Location = new System.Drawing.Point(269, 73);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(27, 13);
-            this.label2.TabIndex = 9;
-            this.label2.Text = "Title";
-            // 
-            // label3
-            // 
-            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
-            this.label3.AutoSize = true;
-            this.label3.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label3.Location = new System.Drawing.Point(705, 73);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(38, 13);
-            this.label3.TabIndex = 10;
-            this.label3.Text = "Owner";
-            // 
-            // label4
-            // 
-            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label4.AutoSize = true;
-            this.label4.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label4.Location = new System.Drawing.Point(488, 73);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(31, 13);
-            this.label4.TabIndex = 11;
-            this.label4.Text = "Tags";
-            // 
-            // label5
-            // 
-            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(895, 55);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(55, 15);
-            this.label5.TabIndex = 12;
-            this.label5.Text = "Friends";
+            this.friendsLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.friendsLabel.AutoSize = true;
+            this.friendsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.friendsLabel.Location = new System.Drawing.Point(804, 74);
+            this.friendsLabel.Name = "friendsLabel";
+            this.friendsLabel.Size = new System.Drawing.Size(69, 20);
+            this.friendsLabel.TabIndex = 12;
+            this.friendsLabel.Text = "Friends";
             // 
             // searchbar
             // 
-            this.searchbar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
-            this.searchbar.Location = new System.Drawing.Point(234, 27);
+            this.searchbar.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.searchbar.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.searchbar.Location = new System.Drawing.Point(202, 27);
             this.searchbar.Name = "searchbar";
-            this.searchbar.Size = new System.Drawing.Size(538, 20);
+            this.searchbar.Size = new System.Drawing.Size(801, 31);
             this.searchbar.TabIndex = 13;
             this.searchbar.Text = "search";
             this.searchbar.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.searchbar.MouseClick += new System.Windows.Forms.MouseEventHandler(this.searchbar_click);
+            this.searchbar.GotFocus += new System.EventHandler(this.searchbar_click);
             this.searchbar.KeyDown += new System.Windows.Forms.KeyEventHandler(this.searchbar_Enter);
+            this.searchbar.LostFocus += new System.EventHandler(this.searchGainFocus);
+            // 
+            // addFriendIcon
+            // 
+            this.addFriendIcon.Image = ((System.Drawing.Image)(resources.GetObject("addFriendIcon.Image")));
+            this.addFriendIcon.Location = new System.Drawing.Point(88, 27);
+            this.addFriendIcon.Name = "addFriendIcon";
+            this.addFriendIcon.Size = new System.Drawing.Size(32, 32);
+            this.addFriendIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.addFriendIcon.TabIndex = 16;
+            this.addFriendIcon.TabStop = false;
+            this.addFriendIcon.Click += new System.EventHandler(this.addFriendIcon_Click);
+            // 
+            // addNotebookIcon
+            // 
+            this.addNotebookIcon.Image = ((System.Drawing.Image)(resources.GetObject("addNotebookIcon.Image")));
+            this.addNotebookIcon.Location = new System.Drawing.Point(50, 27);
+            this.addNotebookIcon.Name = "addNotebookIcon";
+            this.addNotebookIcon.Size = new System.Drawing.Size(32, 32);
+            this.addNotebookIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.addNotebookIcon.TabIndex = 15;
+            this.addNotebookIcon.TabStop = false;
+            this.addNotebookIcon.Click += new System.EventHandler(this.addNotebookIcon_Click);
+            // 
+            // addNoteIcon
+            // 
+            this.addNoteIcon.Image = ((System.Drawing.Image)(resources.GetObject("addNoteIcon.Image")));
+            this.addNoteIcon.Location = new System.Drawing.Point(12, 27);
+            this.addNoteIcon.Name = "addNoteIcon";
+            this.addNoteIcon.Size = new System.Drawing.Size(32, 32);
+            this.addNoteIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.addNoteIcon.TabIndex = 14;
+            this.addNoteIcon.TabStop = false;
+            this.addNoteIcon.Click += new System.EventHandler(this.addNoteIcon_Click);
+            // 
+            // shapeContainer1
+            // 
+            this.shapeContainer1.Location = new System.Drawing.Point(0, 0);
+            this.shapeContainer1.Margin = new System.Windows.Forms.Padding(0);
+            this.shapeContainer1.Name = "shapeContainer1";
+            this.shapeContainer1.Shapes.AddRange(new Microsoft.VisualBasic.PowerPacks.Shape[] {
+            this.lineShape1});
+            this.shapeContainer1.Size = new System.Drawing.Size(1008, 546);
+            this.shapeContainer1.TabIndex = 17;
+            this.shapeContainer1.TabStop = false;
+            // 
+            // lineShape1
+            // 
+            this.lineShape1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.lineShape1.Name = "lineShape1";
+            this.lineShape1.SelectionColor = System.Drawing.SystemColors.Desktop;
+            this.lineShape1.X1 = -1;
+            this.lineShape1.X2 = 1008;
+            this.lineShape1.Y1 = 66;
+            this.lineShape1.Y2 = 66;
+            // 
+            // editProfileIcon
+            // 
+            this.editProfileIcon.Image = ((System.Drawing.Image)(resources.GetObject("editProfileIcon.Image")));
+            this.editProfileIcon.Location = new System.Drawing.Point(126, 27);
+            this.editProfileIcon.Name = "editProfileIcon";
+            this.editProfileIcon.Size = new System.Drawing.Size(32, 32);
+            this.editProfileIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.editProfileIcon.TabIndex = 18;
+            this.editProfileIcon.TabStop = false;
+            this.editProfileIcon.Click += new System.EventHandler(this.editProfileIcon_Click);
+            // 
+            // helpIcon
+            // 
+            this.helpIcon.Image = ((System.Drawing.Image)(resources.GetObject("helpIcon.Image")));
+            this.helpIcon.Location = new System.Drawing.Point(164, 27);
+            this.helpIcon.Name = "helpIcon";
+            this.helpIcon.Size = new System.Drawing.Size(32, 32);
+            this.helpIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.helpIcon.TabIndex = 19;
+            this.helpIcon.TabStop = false;
             // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(1008, 460);
+            this.ClientSize = new System.Drawing.Size(1008, 546);
+            this.Controls.Add(this.helpIcon);
+            this.Controls.Add(this.editProfileIcon);
+            this.Controls.Add(this.addFriendIcon);
+            this.Controls.Add(this.friendsLabel);
+            this.Controls.Add(this.addNotebookIcon);
+            this.Controls.Add(this.addNoteIcon);
             this.Controls.Add(this.searchbar);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.Notes);
+            this.Controls.Add(this.NotesLabel);
             this.Controls.Add(this.NotesOwnerList);
             this.Controls.Add(this.NotesTagList);
-            this.Controls.Add(this.listBox3);
+            this.Controls.Add(this.friendsList);
             this.Controls.Add(this.NotesList);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.notebookLabel);
             this.Controls.Add(this.notebooklist);
-            this.Controls.Add(this.menuStrip1);
-            this.MainMenuStrip = this.menuStrip1;
+            this.Controls.Add(this.menuBar);
+            this.Controls.Add(this.shapeContainer1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MainMenuStrip = this.menuBar;
             this.MinimumSize = new System.Drawing.Size(1023, 449);
             this.Name = "MainWindow";
-            this.Text = "MainWindow";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "ShareNote";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Activated += new System.EventHandler(this.MainWindow_GotFocus);
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
+            this.Load += new System.EventHandler(this.MainWindow_Load);
+            this.menuBar.ResumeLayout(false);
+            this.menuBar.PerformLayout();
+            this.contextMenuStrip1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.addFriendIcon)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.addNotebookIcon)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.addNoteIcon)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.editProfileIcon)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.helpIcon)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -300,18 +426,15 @@
 
         #endregion
 
-        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.MenuStrip menuBar;
         private System.Windows.Forms.ListBox notebooklist;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label notebookLabel;
         private System.Windows.Forms.ListBox NotesList;
-        private System.Windows.Forms.ListBox listBox3;
+        private System.Windows.Forms.ListBox friendsList;
         private System.Windows.Forms.ListBox NotesTagList;
         private System.Windows.Forms.ListBox NotesOwnerList;
-        private System.Windows.Forms.Label Notes;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label NotesLabel;
+        private System.Windows.Forms.Label friendsLabel;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem newNoteToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem newNotebookToolStripMenuItem;
@@ -321,5 +444,17 @@
         private System.Windows.Forms.ToolStripMenuItem myProfileInfoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.TextBox searchbar;
+        private System.Windows.Forms.PictureBox addFriendIcon;
+        private System.Windows.Forms.PictureBox addNotebookIcon;
+        private System.Windows.Forms.PictureBox addNoteIcon;
+        private Microsoft.VisualBasic.PowerPacks.ShapeContainer shapeContainer1;
+        private Microsoft.VisualBasic.PowerPacks.LineShape lineShape1;
+        private System.Windows.Forms.PictureBox editProfileIcon;
+        private System.Windows.Forms.PictureBox helpIcon;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem readToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem1;
+        private System.Windows.Forms.ToolTip notesTitleTooltip;
     }
 }

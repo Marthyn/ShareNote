@@ -18,7 +18,7 @@ namespace CourseWorkCsharp2
             try
             {
                 
-                con = new SqlConnection("Data Source=MARTHYN-LAPTOP\\SQLEXPRESS;Initial Catalog=master;Integrated Security=True");
+                con = new SqlConnection("Data Source=MARTHYN-PC\\SQLEXPRESS;Initial Catalog=master;Integrated Security=True");
             }
             catch (Exception e)
             {
@@ -69,11 +69,9 @@ namespace CourseWorkCsharp2
 
         public Boolean checkLogin(String username, String password)
         {
-            Console.WriteLine("arrived at checklogin");
             List<User> users = this.findUser("username", username);
             if (users.Count > 0)
             {
-                Console.WriteLine("found users");
                 if (users.Count == 1)
                 {
                     User user = users.ElementAt(0);
@@ -157,6 +155,43 @@ namespace CourseWorkCsharp2
                 Console.WriteLine("Deleting user failed");
             }
             this.closeCon();
+        }
+
+        public List<User> searchUser(String column, String searchQ)
+        {
+            SqlDataReader reader;
+            List<User> userlist = new List<User>();
+
+            SqlCommand query = new SqlCommand("SELECT * FROM users WHERE " + column + " LIKE '%'+@searchQ+'%'", con);
+
+            SqlParameter parSearchQ = new SqlParameter("searchQ", SqlDbType.VarChar);
+            parSearchQ.Value = searchQ;
+            query.Parameters.Add(parSearchQ);
+
+            this.openCon();
+            try
+            {
+                reader = query.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    Console.WriteLine("next");
+                    User user = new User(reader["username"].ToString(),
+                                        Convert.ToInt32(reader["userId"].ToString()),
+                                        reader["firstname"].ToString(),
+                                        reader["lastname"].ToString(),
+                                        reader["email"].ToString(),
+                                        reader["password"].ToString(),
+                                        Convert.ToInt32(reader["universityId"].ToString()));
+                    userlist.Add(user);
+                }
+            }
+            catch (SqlException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            this.closeCon();
+            return userlist;
         }
 
         public List<User> findUser(String column, String searchQ)
@@ -403,8 +438,11 @@ namespace CourseWorkCsharp2
             SqlDataReader reader;
             List<Note> notelist = new List<Note>();
 
-            SqlCommand query = new SqlCommand("SELECT * FROM note WHERE tags LIKE '%'+@keyword +'%'"+
-                                              "OR title LIKE '%'+@keyword +'%'", con);
+            SqlCommand query = new SqlCommand("SELECT DISTINCT note.noteId,note.text,note.title,note.tags,note.notebookId,note.userId " +
+                                              "FROM note,users WHERE note.tags LIKE '%'+@keyword +'%' "+
+                                              "OR note.title LIKE '%'+@keyword +'%' "+
+                                              "OR users.username LIKE '%'+@keyword +'%' "+
+                                              "AND note.userId = users.userId", con);
             SqlParameter parKeyword = new SqlParameter("@keyword", SqlDbType.VarChar);
             parKeyword.Value = keyword;
             query.Parameters.Add(parKeyword);
@@ -430,6 +468,118 @@ namespace CourseWorkCsharp2
             }
             this.closeCon();
             return notelist;
+        }
+
+        public bool checkIfFriends(User user1, User user2)
+        {
+            SqlCommand query = new SqlCommand("SELECT * FROM friends WHERE user1 = @user1 AND user2 = @user2", con);
+
+            SqlParameter parUser1 = new SqlParameter("user1", SqlDbType.Int);
+            SqlParameter parUser2 = new SqlParameter("user2", SqlDbType.Int);
+            parUser1.Value = user1.getId();
+            parUser2.Value = user2.getId();
+            query.Parameters.Add(parUser1);
+            query.Parameters.Add(parUser2);
+
+            try
+            {
+                this.openCon();
+                SqlDataReader reader;
+                reader = query.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    return true;
+                }
+                this.closeCon();
+
+            }
+            catch (SqlException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            this.closeCon();
+            return false;
+            
+        }
+
+        public List<User> getFriends(User user)
+        {
+            SqlDataReader reader;
+            List<User> userlist = new List<User>();
+
+            SqlCommand query = new SqlCommand("SELECT user2 FROM friends WHERE user1 = @userId", con);
+
+            SqlParameter parUserId = new SqlParameter("userId", SqlDbType.Int);
+            parUserId.Value = user.getId();
+            query.Parameters.Add(parUserId);
+
+            this.openCon();
+            try
+            {
+                reader = query.ExecuteReader();
+                List<String> ids = new List<String>();
+                while (reader.Read())
+                {
+                    ids.Add(reader["user2"].ToString());
+                }
+                reader.Close();
+                foreach(String s in ids)
+                {
+                    List<User> users = findUser("userId",s);
+                    userlist.Add(users.ElementAt(0));
+                }
+            }
+
+            catch (SqlException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            this.closeCon();
+            return userlist;            
+        }
+
+        public bool insertFriend(User user1, User user2)
+        {
+            String sql;
+            String sql2;
+            sql = "INSERT INTO friends (user1, user2)" +
+                      "VALUES (@user1, @user2)";
+            sql2 = "INSERT INTO friends (user1, user2)" +
+                      "VALUES (@user2, @user1)";
+            
+            SqlCommand query = new SqlCommand(sql, con);
+            SqlCommand query2 = new SqlCommand(sql2, con);
+            SqlParameter parUser1 = new SqlParameter("@user1", SqlDbType.Int);
+            SqlParameter parUser2 = new SqlParameter("@user2", SqlDbType.Int);
+            SqlParameter parUser3 = new SqlParameter("@user1", SqlDbType.Int);
+            SqlParameter parUser4 = new SqlParameter("@user2", SqlDbType.Int);
+
+            parUser1.Value = user1.getId();
+            parUser2.Value = user2.getId();
+            parUser3.Value = user1.getId();
+            parUser4.Value = user2.getId();
+
+            query.Parameters.Add(parUser1);
+            query.Parameters.Add(parUser2);
+            query2.Parameters.Add(parUser3);
+            query2.Parameters.Add(parUser4);
+
+            try
+            {
+                this.openCon();
+                query.ExecuteNonQuery();
+                query2.ExecuteNonQuery();
+                this.closeCon();
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Adding friend failed");
+                Console.WriteLine(e.Message);
+                this.closeCon();
+                return false;
+            }
         }
         
     }

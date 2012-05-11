@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.IO;
 
 namespace CourseWorkCsharp2
 {
@@ -263,6 +264,13 @@ namespace CourseWorkCsharp2
                 MessageBox.Show(error, "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
             return valid;
+        }
+
+        private void helpToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            
+            Console.WriteLine(Directory.GetCurrentDirectory());
+            Help.ShowHelp(this, "C:\\Users\\Marthyn\\Documents\\Visual Studio 2010\\Projects\\CourseWorkCsharp2\\CourseWorkCsharp2\\resources\\help.chm", HelpNavigator.Find, "create note"); 
         }
 
     }

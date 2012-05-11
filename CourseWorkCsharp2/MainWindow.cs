@@ -15,20 +15,30 @@ namespace CourseWorkCsharp2
         SQLconnect data;
         public MainWindow(User currentUser)
         {
-            InitializeComponent();
+            InitializeComponent(); 
             this.currentUser = currentUser;
             data = new SQLconnect();
             loadNotebooks();
+            loadFriends();
             loadNotes(currentUser.getId(), "userId");
         }
 
         public void MainWindow_GotFocus(object sender, EventArgs e)
         {
             loadNotebooks();
-            this.searchbar.Text = "";
+            loadFriends();
             loadNotes(currentUser.getId(), "userId"); 
         }
 
+        private void loadFriends()
+        {
+            this.friendsList.Items.Clear();
+            List<User> friends = data.getFriends(currentUser);
+            foreach (User f in friends)
+            {
+                friendsList.Items.Add(f);
+            }
+        }
 
         private void loadNotebooks()
         {
@@ -91,6 +101,16 @@ namespace CourseWorkCsharp2
             }
         }
 
+        private void friendList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+            User user = (User)friendsList.SelectedItem;
+            if (user != null)
+            {
+                loadNotes(user.getId(), "userId");
+            }
+        }
+
         private void NotesList_DoubleClick(object sender, EventArgs e)
         {
             Note note = (Note)NotesList.SelectedItem;
@@ -98,6 +118,27 @@ namespace CourseWorkCsharp2
             {
                 WriteNote writeWindow = new WriteNote(note, currentUser);
                 writeWindow.ShowDialog();
+            }
+        }
+
+        private void FriendsList_DoubleClick(object sender, EventArgs e)
+        {
+            User user = (User)friendsList.SelectedItem;
+            if (user != null)
+            {
+                friendWindow friends = new friendWindow(currentUser, user);
+                friends.ShowDialog();
+            }
+        }
+
+
+        private void NotesOwnerList_DoubleClick(object sender, EventArgs e)
+        {
+            User user = (User)NotesOwnerList.SelectedItem;
+            if (user != null)
+            {
+                friendWindow friends = new friendWindow(currentUser, user);
+                friends.ShowDialog();
             }
         }
 
@@ -165,12 +206,73 @@ namespace CourseWorkCsharp2
         {
             this.searchbar.Text = "";
         }
+        private void searchGainFocus(object sender, EventArgs e)
+        {
+            this.searchbar.Text = "search";
+        }
 
         private void myProfileInfoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             UserWindowedit edit = new UserWindowedit(currentUser);
             edit.ShowDialog();
         }
+
+        private void MainWindow_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void addFriendIcon_Click(object sender, EventArgs e)
+        {
+            SearchFriend friendwindow = new SearchFriend(this.currentUser);
+            friendwindow.ShowDialog();
+        }
+
+        private void addNoteIcon_Click(object sender, EventArgs e)
+        {
+            WriteNote writewindow = new WriteNote(this.currentUser);
+            writewindow.ShowDialog();
+        }
+
+        private void addNotebookIcon_Click(object sender, EventArgs e)
+        {
+            NotebookWindow notebookwindow = new NotebookWindow(currentUser);
+            notebookwindow.ShowDialog();
+        }
+
+        private void editProfileIcon_Click(object sender, EventArgs e)
+        {
+            UserWindowedit edit = new UserWindowedit(currentUser);
+            edit.ShowDialog();
+        }
+
+        private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void editToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Note note = (Note)NotesList.SelectedItem;
+            if (note != null)
+            {
+                WriteNote writeWindow = new WriteNote(note, currentUser);
+                writeWindow.ShowDialog();
+            }
+        }
+
+
+
+        private void helpToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            Help.ShowHelp(this, "C:\\Users\\Marthyn\\Documents\\Visual Studio 2010\\Projects\\CourseWorkCsharp2\\CourseWorkCsharp2\\resources\\help.chm", HelpNavigator.Find, "create note");
+        }
+
+   
+
+
+
+       
     }
 
    

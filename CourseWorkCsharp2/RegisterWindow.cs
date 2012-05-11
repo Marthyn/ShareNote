@@ -31,12 +31,12 @@ namespace CourseWorkCsharp2
                 University uni = (University)universityBox.SelectedItem;
                 if (data.addUser(new User(userNameField.Text, 0, firtnameField.Text, surnameField.Text, emailField.Text, passwordField.Text, uni.getUniversityId())))
                 {
-                    MessageBox.Show("You've successfully registered, you can now log in");
+                    MessageBox.Show("You've successfully registered, you can now log in", "Login succesfull");
                     this.Close();
                 }
                 else
                 {
-                    MessageBox.Show("Something went wrong, try again");
+                    MessageBox.Show("Something went wrong, please try again or contact the helpdesk at help@sharenote.com","Register error");
                 }
             }
         }
@@ -48,17 +48,17 @@ namespace CourseWorkCsharp2
             if (passwordField.Text.Length < 6)
             {
                 valid = false;
-                errors = errors + "Password is too short \r\n";
+                errors = errors + "The password you've entered is too short, it should be more than 6 signs long \r\n";
             }
             if (data.findUser("username",userNameField.Text).Count > 0)
             {
                 valid = false;
-                errors = errors + "Username already exists \r\n";
+                errors = errors + "The username you've chosen already exists, please chose another username \r\n";
             }
 
             if (!errors.Equals(""))
             {
-                MessageBox.Show(errors);
+                MessageBox.Show(errors,"Register error");
             }
             return valid;
         }

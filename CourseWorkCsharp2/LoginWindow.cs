@@ -33,7 +33,6 @@ namespace CourseWorkCsharp2
 
             if (SQL.checkLogin(username, password))
             {
-                MessageBox.Show("Login succesful");
                 List<User> users = SQL.findUser("username", username);
                 User user = users.ElementAt(0);
                 MainWindow mainWindow = new MainWindow(user);
@@ -42,10 +41,15 @@ namespace CourseWorkCsharp2
             }
             else
             {
-                MessageBox.Show("Login failed");
+                MessageBox.Show("Your account details were not found or incorrect, please try again", "Login error");
                 
             }
 
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Made by Marthyn Olthof", "About this program");
         }
     }
 }

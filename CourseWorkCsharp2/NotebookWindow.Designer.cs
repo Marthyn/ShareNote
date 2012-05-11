@@ -28,24 +28,25 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NotebookWindow));
+            this.nameLabel = new System.Windows.Forms.Label();
             this.nameField = new System.Windows.Forms.TextBox();
             this.descriptionField = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
+            this.descriptionLabel = new System.Windows.Forms.Label();
+            this.nonotesLabel = new System.Windows.Forms.Label();
             this.noNotesfield = new System.Windows.Forms.TextBox();
             this.SaveBtn = new System.Windows.Forms.Button();
             this.CloseBtn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // label1
+            // nameLabel
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 13);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Name";
+            this.nameLabel.AutoSize = true;
+            this.nameLabel.Location = new System.Drawing.Point(61, 16);
+            this.nameLabel.Name = "nameLabel";
+            this.nameLabel.Size = new System.Drawing.Size(35, 13);
+            this.nameLabel.TabIndex = 9;
+            this.nameLabel.Text = "Name";
             // 
             // nameField
             // 
@@ -62,38 +63,38 @@
             this.descriptionField.Size = new System.Drawing.Size(170, 80);
             this.descriptionField.TabIndex = 2;
             // 
-            // label2
+            // descriptionLabel
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(13, 40);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(60, 13);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "Description";
+            this.descriptionLabel.AutoSize = true;
+            this.descriptionLabel.Location = new System.Drawing.Point(36, 40);
+            this.descriptionLabel.Name = "descriptionLabel";
+            this.descriptionLabel.Size = new System.Drawing.Size(60, 13);
+            this.descriptionLabel.TabIndex = 8;
+            this.descriptionLabel.Text = "Description";
             // 
-            // label3
+            // nonotesLabel
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(13, 127);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(65, 13);
-            this.label3.TabIndex = 4;
-            this.label3.Text = "No. of notes";
+            this.nonotesLabel.AutoSize = true;
+            this.nonotesLabel.Location = new System.Drawing.Point(31, 127);
+            this.nonotesLabel.Name = "nonotesLabel";
+            this.nonotesLabel.Size = new System.Drawing.Size(65, 13);
+            this.nonotesLabel.TabIndex = 7;
+            this.nonotesLabel.Text = "No. of notes";
             // 
             // noNotesfield
             // 
-            this.noNotesfield.Location = new System.Drawing.Point(172, 127);
+            this.noNotesfield.Location = new System.Drawing.Point(102, 127);
             this.noNotesfield.Name = "noNotesfield";
             this.noNotesfield.ReadOnly = true;
-            this.noNotesfield.Size = new System.Drawing.Size(100, 20);
-            this.noNotesfield.TabIndex = 5;
+            this.noNotesfield.Size = new System.Drawing.Size(170, 20);
+            this.noNotesfield.TabIndex = 3;
             // 
             // SaveBtn
             // 
             this.SaveBtn.Location = new System.Drawing.Point(196, 154);
             this.SaveBtn.Name = "SaveBtn";
             this.SaveBtn.Size = new System.Drawing.Size(75, 23);
-            this.SaveBtn.TabIndex = 6;
+            this.SaveBtn.TabIndex = 4;
             this.SaveBtn.Text = "Save";
             this.SaveBtn.UseVisualStyleBackColor = true;
             this.SaveBtn.Click += new System.EventHandler(this.SaveBtn_Click);
@@ -103,7 +104,7 @@
             this.CloseBtn.Location = new System.Drawing.Point(115, 154);
             this.CloseBtn.Name = "CloseBtn";
             this.CloseBtn.Size = new System.Drawing.Size(75, 23);
-            this.CloseBtn.TabIndex = 7;
+            this.CloseBtn.TabIndex = 5;
             this.CloseBtn.Text = "Close";
             this.CloseBtn.UseVisualStyleBackColor = true;
             this.CloseBtn.Click += new System.EventHandler(this.CloseBtn_Click);
@@ -116,13 +117,15 @@
             this.Controls.Add(this.CloseBtn);
             this.Controls.Add(this.SaveBtn);
             this.Controls.Add(this.noNotesfield);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
+            this.Controls.Add(this.nonotesLabel);
+            this.Controls.Add(this.descriptionLabel);
             this.Controls.Add(this.descriptionField);
             this.Controls.Add(this.nameField);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.nameLabel);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "NotebookWindow";
-            this.Text = "NotebookWindow";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Notebook";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -130,11 +133,11 @@
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label nameLabel;
         private System.Windows.Forms.TextBox nameField;
         private System.Windows.Forms.TextBox descriptionField;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label descriptionLabel;
+        private System.Windows.Forms.Label nonotesLabel;
         private System.Windows.Forms.TextBox noNotesfield;
         private System.Windows.Forms.Button SaveBtn;
         private System.Windows.Forms.Button CloseBtn;
