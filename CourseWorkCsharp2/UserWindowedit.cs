@@ -56,6 +56,10 @@ namespace CourseWorkCsharp2
                 data.addUser(new User(currentUser.getUsername(), currentUser.getId(),
                                  this.FirstnameField.Text, this.LastnameField.Text, this.EmailField.Text,
                                  password, uni.getUniversityId()));
+                MessageBox.Show("Your profile has been succesfully updated", "User updated");
+                List<User> users = data.findUser("userId", currentUser.getId().ToString());
+                this.currentUser = users.ElementAt(0);
+                loadFields();
             }
         }
 

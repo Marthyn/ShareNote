@@ -27,7 +27,9 @@ namespace CourseWorkCsharp2
         {
             loadNotebooks();
             loadFriends();
-            loadNotes(currentUser.getId(), "userId"); 
+            loadNotes(currentUser.getId(), "userId");
+            List<User> users = data.findUser("userId", currentUser.getId().ToString());
+            this.currentUser = users.ElementAt(0);
         }
 
         private void loadFriends()
