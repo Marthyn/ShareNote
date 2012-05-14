@@ -39,12 +39,13 @@ namespace CourseWorkCsharp2
             }
             List<University> unis = data.returnUniversitys();
             String uniname = "";
-            foreach(University u in unis)
+            foreach (University u in unis)
             {
-                if(u.getUniversityId() == friend.getUniversityId())
+                if (u.getUniversityId() == friend.getUniversityId())
                 {
                     uniname = u.getName();
                 }
+            }
             this.universityField.Text = uniname;
         }
 
