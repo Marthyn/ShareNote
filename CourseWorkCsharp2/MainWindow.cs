@@ -270,6 +270,12 @@ namespace CourseWorkCsharp2
             Help.ShowHelp(this, "C:\\Users\\Marthyn\\Documents\\Visual Studio 2010\\Projects\\CourseWorkCsharp2\\CourseWorkCsharp2\\resources\\help.chm", HelpNavigator.Find, "create note");
         }
 
+        private void addFriendToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SearchFriend friendwindow = new SearchFriend(this.currentUser);
+            friendwindow.ShowDialog();
+        }
+
    
 
 

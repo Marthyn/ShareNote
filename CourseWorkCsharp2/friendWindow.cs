@@ -37,6 +37,15 @@ namespace CourseWorkCsharp2
             {
                 friendsCheck.Checked = false;
             }
+            List<University> unis = data.returnUniversitys();
+            String uniname = "";
+            foreach(University u in unis)
+            {
+                if(u.getUniversityId() == friend.getUniversityId())
+                {
+                    uniname = u.getName();
+                }
+            this.universityField.Text = uniname;
         }
 
         private void friendButton_Click(object sender, EventArgs e)

@@ -111,6 +111,7 @@
             this.addFriendToolStripMenuItem.Name = "addFriendToolStripMenuItem";
             this.addFriendToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.addFriendToolStripMenuItem.Text = "Add friend";
+            this.addFriendToolStripMenuItem.Click += new System.EventHandler(this.addFriendToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
